@@ -11,20 +11,9 @@ const {
 
 class Cell extends React.Component {
 
-  handleResponderGrant(evt) {
-    console.log('responder granted')
-  }
-
-  handleResponderMove(evt) {
-    console.log('responder moved', evt.nativeEvent.locationX)
-    // const { dispatch, index, translations, translateX, translateY } = this.props
-    // console.log(index)
-    // dispatch(action.DRAG_CELL(index, translations, translateX, translateY))
-  }
 
   render() {
-    console.log('rendering Cell')
-    const { cellSize, position, color, key, borderWidth, translateX, translateY } = this.props
+    const { cellSize, position, color, index, borderWidth, translateX, translateY, onCellResponderGrant, onCellResponderMove, onCellResponderRelease } = this.props
     let borderColor = '#eeeeee'
 
     if (color == 'transparent') {
@@ -41,6 +30,7 @@ class Cell extends React.Component {
         minWidth: cellSize,
         minHeight: cellSize,
         maxHeight: cellSize,
+        transform: [{translateX: translateX}, {translateY: translateY}],
         borderRadius: cellSize/2,
       },
       innerCell: {
@@ -53,8 +43,9 @@ class Cell extends React.Component {
       <View
         style={styles.gridCell}
         onStartShouldSetResponder={(evt) => true}
-        onResponderGrant={(evt) => this.handleResponderGrant(evt)}
-        onResponderMove={(evt) => this.handleResponderMove(evt)} >
+        onResponderGrant={(evt) => onCellResponderGrant(evt, index)}
+        onResponderMove={(evt) => onCellResponderMove(evt, index)}
+        onResponderRelease={(evt) => onCellResponderRelease(evt, index)} >
         <Text>
           {position}
         </Text>

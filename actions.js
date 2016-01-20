@@ -1,5 +1,5 @@
 // import {moveCells} from './action_helpers/move_cells.js'
-// import * as helper from './action_helpers/helpers.js'
+import * as helper from './helpers.js'
 
 export const SOLVE_PUZZLE = (gridWidth, cellData, winningCombo, level) => {
   helper.solvePuzzle(gridWidth, cellData.toJS(),winningCombo.toJS())
@@ -15,7 +15,6 @@ export const SOLVE_PUZZLE = (gridWidth, cellData, winningCombo, level) => {
 
 export const DRAG_CELL = (cellId, translations, translateX, translateY) => {
   let newTranslations = translations.toJS()
-  console.log('translations: ', newTranslations)
   newTranslations[cellId].translateX = translateX
   newTranslations[cellId].translateY = translateY
   return {
@@ -26,9 +25,50 @@ export const DRAG_CELL = (cellId, translations, translateX, translateY) => {
   }
 }
 
-export const MOVE_CELLS = (gridWidth, cellData, keyCode, winningCombo) => {
-  return moveCells(gridWidth, cellData, keyCode, winningCombo)
-}
+export const MOVE_CELLS = (gridWidth, cellData, index, translations, winningCombo) => {
+  let move = 0
+  console.log('translation: ', translations[index])
+
+
+  if (translations[index].translateY < -5) {
+    move = -(gridWidth)
+  } else if (translations[index].translateY > 5) {
+    move = gridWidth
+  } else if (translations[index].translateX < -5) {
+    move = -1
+  } else if (translations[index].translateX > 5) {
+    move = 1
+  }
+
+
+  let emptyCell = cellData.indexOf(0)
+
+  if (helper.moveIsLegal(gridWidth, index, move)) {
+    console.log('move is legal')
+    cellData[emptyCell] = cellData[index]
+    cellData[index] = 0
+  } else {
+    console.log('move is illegal ')
+  }
+  console.log(cellData)
+
+
+  const winner = () => {
+    for (let i = 0; i < cellData.length; i++) {
+      if (cellData[i] != winningCombo[i]) {
+        return false
+      }
+    }
+    return true
+  }
+
+  return {
+    type: 'MOVE_CELLS',
+    data: {
+      cellData: cellData,
+      winner: winner()
+    }
+  }}
 
 export const TIMER = (timeLeft) => {
   if (timeLeft < 10) {

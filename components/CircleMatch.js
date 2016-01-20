@@ -8,7 +8,7 @@ import Grid from './Grid.js'
 // import Toolbar from './Toolbar.jsx'
 // import _NextLevel from './_NextLevel.jsx'
 import * as style from '../style.js'
-// import * as action from '../actions.js'
+import * as action from '../actions.js'
 
 const {
   StyleSheet,
@@ -16,8 +16,37 @@ const {
   Text
 } = React
 
+let originalX = 0
+let originalY = 0
+
 class CircleMatch extends React.Component {
+
+  handleCellResponderGrant(evt, index) {
+    originalX = evt.nativeEvent.pageX
+    originalY = evt.nativeEvent.pageY
+  }
+
+  handleCellResponderMove(evt, index) {
+    const { dispatch, cellData, translations } = this.props
+    if (cellData.toJS()[index - 1] == 0 || cellData.toJS()[index + 1] == 0) {
+      let newX = evt.nativeEvent.pageX - originalX
+      dispatch(action.DRAG_CELL(index, translations, newX, 0))
+    } else if (cellData.toJS()[index - 3] == 0 || cellData.toJS()[index + 3] == 0) {
+      let newY = evt.nativeEvent.pageY - originalY
+      dispatch(action.DRAG_CELL(index, translations, 0, newY))
+    }
+  }
+
+  handleCellResponderRelease(evt, index) {
+    const { dispatch, cellData, gridWidth, translations, winningCombo } = this.props
+    dispatch(action.MOVE_CELLS(gridWidth, cellData.toJS(), index, translations.toJS(), winningCombo))
+    dispatch(action.DRAG_CELL(index, translations, 0, 0))
+    originalX = 0
+    originalY = 0
+  }
+
   render() {
+
     const {
       autoSolved,
       cellColors,
@@ -32,14 +61,16 @@ class CircleMatch extends React.Component {
       winner,
       winningCombo
     } = this.props
-    console.log('rendering CircleMatch')
     return (
       <View style={styles.container}>
         <Grid
           gridWidth={gridWidth}
           cellData={cellData}
           cellColors={cellColors}
-          translations={translations} />
+          translations={translations}
+          onCellResponderGrant={(evt, index) => this.handleCellResponderGrant(evt, index)}
+          onCellResponderMove={(evt, index) => this.handleCellResponderMove(evt, index)}
+          onCellResponderRelease={(evt, index) => this.handleCellResponderRelease(evt, index)} />
       </View>
     )
   }
