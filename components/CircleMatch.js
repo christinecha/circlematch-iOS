@@ -18,10 +18,28 @@ const {
 
 class CircleMatch extends React.Component {
   render() {
+    const {
+      autoSolved,
+      cellColors,
+      cellData,
+      gridWidth,
+      level,
+      modalIsOpen,
+      score,
+      timerIsRunning,
+      timeLeft,
+      translations,
+      winner,
+      winningCombo
+    } = this.props
     console.log('rendering CircleMatch')
     return (
       <View style={styles.container}>
-        <Grid />
+        <Grid
+          gridWidth={gridWidth}
+          cellData={cellData}
+          cellColors={cellColors}
+          translations={translations} />
       </View>
     )
   }
@@ -48,7 +66,6 @@ let styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    animation: state.get('animation'),
     autoSolved: state.get('autoSolved'),
     cellColors: state.get('cellColors'),
     cellData: state.get('cellData'),
@@ -58,6 +75,7 @@ function mapStateToProps(state) {
     score: state.get('score'),
     timerIsRunning: state.get('timerIsRunning'),
     timeLeft: state.get('timeLeft'),
+    translations: state.get('translations'),
     winningCombo: state.get('winningCombo'),
     winner: state.get('winner')
   }

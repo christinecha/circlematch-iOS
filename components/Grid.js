@@ -1,6 +1,7 @@
 "use strict"
 
 import React from 'react-native'
+import Cell from './Cell.js'
 
 const {
   StyleSheet,
@@ -10,31 +11,33 @@ const {
 
 class Grid extends React.Component {
 
-  // getCells() {
-  //   const { cellData, cellColors, animation } = this.props
-  //   let cellSize = (60) + 'px'
-  //   return cellData.toJS().map((cell, i) => {
-  //     return (
-  //       <Cell
-  //       color={cellColors.toJS()[cell]}
-  //       cellSize={cellSize}
-  //       position={cell}
-  //       borderWidth='5px'
-  //       key={i}
-  //       animation={animation.toJS()[i]} />
-  //     )
-  //   })
-  // }
+  getCells() {
+    const { cellData, cellColors, translations } = this.props
+    let cellSize = 60
+    return cellData.toJS().map((cell, i) => {
+      return (
+        <Cell
+        color={cellColors.toJS()[cell]}
+        cellSize={cellSize}
+        position={cell}
+        borderWidth={5}
+        index={i}
+        key={i}
+        translations={translations} />
+      )
+    })
+  }
 
   render() {
-    // const { gridWidth, cellData, cellColors, animation } = this.props
+    console.log('rendering Grid')
+    const { gridWidth, cellData, cellColors, animation } = this.props
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
           circlematch
         </Text>
         <View style={styles.grid}>
-          <Text>grid goes here</Text>
+          {this.getCells()}
         </View>
       </View>
     )
@@ -52,7 +55,9 @@ let styles = StyleSheet.create({
     width: 200,
     height: 200,
     backgroundColor: '#eee',
-    padding: 10
+    padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   instructions: {
     textAlign: 'center',
