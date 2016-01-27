@@ -25,30 +25,18 @@ export const DRAG_CELL = (cellId, translations, translateX, translateY) => {
   }
 }
 
-export const MOVE_CELLS = (gridWidth, cellData, index, translations, winningCombo) => {
-  let move = 0
-  console.log('translation: ', translations[index])
-
-
-  if (translations[index].translateY < -5) {
-    move = -(gridWidth)
-  } else if (translations[index].translateY > 5) {
-    move = gridWidth
-  } else if (translations[index].translateX < -5) {
-    move = -1
-  } else if (translations[index].translateX > 5) {
-    move = 1
-  }
-
+export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
 
   let emptyCell = cellData.indexOf(0)
+  console.log('0 is at position ', emptyCell)
+  let index = emptyCell - move
 
   if (helper.moveIsLegal(gridWidth, index, move)) {
-    console.log('move is legal')
+    console.log('move', move, 'is legal')
     cellData[emptyCell] = cellData[index]
     cellData[index] = 0
   } else {
-    console.log('move is illegal ')
+    console.log('move', move, 'is illegal')
   }
   console.log(cellData)
 
@@ -98,6 +86,7 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
     }
   }
   let newScore = score + points
+  console.log(newScore)
 
   return {
     type: 'SET_LEVEL',

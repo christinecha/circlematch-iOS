@@ -13,7 +13,7 @@ class Cell extends React.Component {
 
 
   render() {
-    const { cellSize, position, color, index, borderWidth, translateX, translateY, onCellResponderGrant, onCellResponderMove, onCellResponderRelease } = this.props
+    const { cellSize, position, color, index, borderWidth } = this.props
     let borderColor = '#eeeeee'
 
     if (color == 'transparent') {
@@ -24,13 +24,12 @@ class Cell extends React.Component {
       gridCell: {
         backgroundColor: color,
         borderColor: borderColor,
-        borderWidth: borderWidth,
+        margin: borderWidth,
         justifyContent: 'center',
         alignItems: 'center',
         minWidth: cellSize,
         minHeight: cellSize,
         maxHeight: cellSize,
-        transform: [{translateX: translateX}, {translateY: translateY}],
         borderRadius: cellSize/2,
       },
       innerCell: {
@@ -40,15 +39,7 @@ class Cell extends React.Component {
     })
 
     return (
-      <View
-        style={styles.gridCell}
-        onStartShouldSetResponder={(evt) => true}
-        onResponderGrant={(evt) => onCellResponderGrant(evt, index)}
-        onResponderMove={(evt) => onCellResponderMove(evt, index)}
-        onResponderRelease={(evt) => onCellResponderRelease(evt, index)} >
-        <Text>
-          {position}
-        </Text>
+      <View style={styles.gridCell}>
       </View>
     )
   }

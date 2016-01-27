@@ -13,7 +13,7 @@ const {
 class Grid extends React.Component {
 
   getCells() {
-    const { cellData, cellColors, translations, onCellResponderGrant, onCellResponderMove, onCellResponderRelease } = this.props
+    const { cellData, cellColors } = this.props
     let cellSize = 60
     return cellData.toJS().map((cell, i) => {
       return (
@@ -23,23 +23,20 @@ class Grid extends React.Component {
           position={cell}
           borderWidth={5}
           index={i}
-          key={i}
-          translateX={translations.toJS()[i].translateX}
-          translateY={translations.toJS()[i].translateY}
-          onCellResponderGrant={(evt, index) => onCellResponderGrant(evt, index)}
-          onCellResponderMove={(evt, index) => onCellResponderMove(evt, index)}
-          onCellResponderRelease={(evt, index) => onCellResponderRelease(evt, index)} />
+          key={i} />
       )
     })
   }
 
   render() {
-    const { gridWidth, cellData, cellColors, animation } = this.props
+    const { gridWidth, cellData, cellColors, animation, onCellResponderGrant, onCellResponderRelease } = this.props
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          circlematch
-        </Text>
+      <View
+        style={styles.container}
+        onStartShouldSetResponder={(evt) => true}
+        onResponderGrant={(evt) => onCellResponderGrant(evt)}
+        onResponderRelease={(evt) => onCellResponderRelease(evt)}
+      >
         <View style={styles.grid}>
           {this.getCells()}
         </View>
@@ -52,12 +49,14 @@ let styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    maxHeight: 300,
+    marginTop: 50,
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   grid: {
-    width: 200,
-    height: 200,
+    width: 230,
+    height: 230,
     backgroundColor: '#eee',
     padding: 10,
     flexDirection: 'row',

@@ -5,7 +5,7 @@ function setState(state, newData) {
 }
 
 function reducer(state = Map(), action) {
-  console.log(action.type)
+  // console.log(action.type)
   switch (action.type) {
     case 'SET_INITIAL_STATE':
       return setState(state, action.data)

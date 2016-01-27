@@ -4,14 +4,16 @@ import React from 'react-native'
 import {connect} from 'react-redux/native'
 // import Modal from 'react-modal'
 import Grid from './Grid.js'
-// import Sidebar from './Sidebar.jsx'
+import InfoBar from './InfoBar.js'
 // import Toolbar from './Toolbar.jsx'
-// import _NextLevel from './_NextLevel.jsx'
+import _NextLevel from './_NextLevel.js'
 import * as style from '../style.js'
 import * as action from '../actions.js'
+import * as helper from '../helpers.js'
 
 const {
   StyleSheet,
+  Modal,
   View,
   Text
 } = React
@@ -21,26 +23,30 @@ let originalY = 0
 
 class CircleMatch extends React.Component {
 
-  handleCellResponderGrant(evt, index) {
+  componentDidUpdate() {
+    const { dispatch, autoSolved, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
+    if (winner == true) {
+      dispatch(action.SET_LEVEL(level + 1, gridWidth, score, timeLeft, autoSolved))
+      dispatch(action.OPEN_MODAL())
+    }
+  }
+
+  closeModal() {
+    const { dispatch } = this.props
+    dispatch(action.CLOSE_MODAL())
+  }
+
+  handleSwipeGrant(evt) {
     originalX = evt.nativeEvent.pageX
     originalY = evt.nativeEvent.pageY
   }
 
-  handleCellResponderMove(evt, index) {
-    const { dispatch, cellData, translations } = this.props
-    if (cellData.toJS()[index - 1] == 0 || cellData.toJS()[index + 1] == 0) {
-      let newX = evt.nativeEvent.pageX - originalX
-      dispatch(action.DRAG_CELL(index, translations, newX, 0))
-    } else if (cellData.toJS()[index - 3] == 0 || cellData.toJS()[index + 3] == 0) {
-      let newY = evt.nativeEvent.pageY - originalY
-      dispatch(action.DRAG_CELL(index, translations, 0, newY))
-    }
-  }
-
-  handleCellResponderRelease(evt, index) {
-    const { dispatch, cellData, gridWidth, translations, winningCombo } = this.props
-    dispatch(action.MOVE_CELLS(gridWidth, cellData.toJS(), index, translations.toJS(), winningCombo))
-    dispatch(action.DRAG_CELL(index, translations, 0, 0))
+  handleSwipeRelease(evt) {
+    const { dispatch, cellData, gridWidth, translations, winner, winningCombo } = this.props
+    let Xdiff = evt.nativeEvent.pageX - originalX
+    let Ydiff = evt.nativeEvent.pageY - originalY
+    let move = helper.moveCode(gridWidth, Xdiff, Ydiff)
+    dispatch(action.MOVE_CELLS(gridWidth, cellData.toJS(), move, winningCombo.toJS()))
     originalX = 0
     originalY = 0
   }
@@ -61,16 +67,33 @@ class CircleMatch extends React.Component {
       winner,
       winningCombo
     } = this.props
+
+    console.log('winner is ', winner)
+
     return (
       <View style={styles.container}>
+        <Modal
+          transparent={true}
+          visible={modalIsOpen} >
+          <_NextLevel
+            level={level}
+            autoSolved={autoSolved}
+            closeModal={() => this.closeModal()} />
+        </Modal>
         <Grid
           gridWidth={gridWidth}
           cellData={cellData}
           cellColors={cellColors}
           translations={translations}
-          onCellResponderGrant={(evt, index) => this.handleCellResponderGrant(evt, index)}
-          onCellResponderMove={(evt, index) => this.handleCellResponderMove(evt, index)}
-          onCellResponderRelease={(evt, index) => this.handleCellResponderRelease(evt, index)} />
+          onCellResponderGrant={(evt) => this.handleSwipeGrant(evt)}
+          onCellResponderRelease={(evt) => this.handleSwipeRelease(evt)} />
+        <InfoBar
+          gridWidth={gridWidth}
+          cellColors={cellColors}
+          level={level}
+          winningCombo={winningCombo}
+          score={score}
+          onSolveButtonClick = {() => this.solvePuzzle()} />
       </View>
     )
   }
@@ -82,17 +105,7 @@ let styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 function mapStateToProps(state) {

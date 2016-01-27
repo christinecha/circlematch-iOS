@@ -10,7 +10,7 @@ const {
 class InfoBar extends React.Component {
 
   getCells() {
-    const { gridWidth, winningCombo, cellColors, translations } = this.props
+    const { gridWidth, winningCombo, cellColors } = this.props
     let cellSize = 30
     return winningCombo.toJS().map((cell, i) => {
       return (
@@ -20,9 +20,7 @@ class InfoBar extends React.Component {
           position={cell}
           borderWidth={3}
           index={i}
-          key={i}
-          translateX={0}
-          translateY={0} />
+          key={i} />
       )
     })
   }
@@ -32,29 +30,33 @@ class InfoBar extends React.Component {
     let gridSize = (gridWidth * 30)
     let styles = StyleSheet.create({
       container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'center',
+        maxHeight: 250
       },
       scoreboard: {
         padding: 5,
         backgroundColor: '#55bbc8',
-        width: 134,
-        marginLeft: 20,
+        width: 230,
+        alignItems: 'center'
       },
       score: {
         fontSize: 22,
         color: '#ffffff',
       },
+      level: {
+        width: 230,
+        alignItems: 'center',
+        backgroundColor: '#eeeeee',
+        padding: 5
+      },
       levelInfo: {
-        marginLeft: 20,
-        width: 140,
-        flex: 1,
+        width: 230,
+        paddingTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 3,
         borderColor: '#eeeeee'
-      },
-      level: {
-        backgroundColor: '#eeeeee',
-        padding: 5,
-        marginBottom: 10
       },
       solveButton: {
         backgroundColor: '#eeeeee',
@@ -64,8 +66,8 @@ class InfoBar extends React.Component {
       },
       grid: {
         backgroundColor: '#eeeeee',
-        width: gridSize + 10,
-        height: gridSize + 10,
+        width: gridSize + 30,
+        height: gridSize + 30,
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 5,

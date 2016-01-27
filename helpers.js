@@ -1,8 +1,23 @@
 "use strict"
 
+export const moveCode = (gridWidth, Xdiff, Ydiff) => {
+  if (Math.abs(Xdiff) > Math.abs(Ydiff)) {
+    if (Xdiff < 0) {
+      return -1
+    } else {
+      return 1
+    }
+  } else {
+    if (Ydiff < 0) {
+      return -(gridWidth)
+    } else {
+      return gridWidth
+    }
+  }
+}
+
 export const moveIsLegal = (gridWidth, index, move) => {
-  let moves = [1, -1, gridWidth, -(gridWidth)]
-  if (moves.indexOf(move) < 0) {
+  if (index < 0 || index > 8) {
     return false
   }
   let numOfCells = gridWidth * gridWidth

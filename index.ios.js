@@ -11,7 +11,7 @@ const {
   StyleSheet,
   Text,
   View,
-  NavigatorIOS
+  Navigator
 } = React
 
 const store = createStore(reducer)
@@ -55,12 +55,19 @@ class App extends React.Component {
   render() {
     console.log('rendering App')
     return (
-      <NavigatorIOS
+      <Navigator
         style={styles.container}
         initialRoute={{
-          title: 'CircleMatch',
+          name: 'CircleMatch',
           component: CircleMatchContainer
-        }} />
+        }}
+        renderScene={(route, navigator) => {
+          console.log(route, navigator);
+          if (route.component) {
+            return React.createElement(route.component, { navigator });
+          }
+        }}
+      />
     )
   }
 }
