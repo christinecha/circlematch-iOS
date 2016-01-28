@@ -6,7 +6,7 @@ const {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableOpacity
 } = React
 
 class _NextLevel extends React.Component {
@@ -19,16 +19,12 @@ class _NextLevel extends React.Component {
     }
 
     return (
-      <TouchableHighlight onPress={() => closeModal()}>
+      <TouchableOpacity onPress={() => closeModal()}>
         <View style={styles.container}>
           <Text>{announcement}</Text>
-          <View
-            style={styles.button}
-            onClick={closeModal}>
             <Text>tap to continue</Text>
-          </View>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 }

@@ -1,8 +1,9 @@
 // import {moveCells} from './action_helpers/move_cells.js'
 import * as helper from './helpers.js'
+import * as solutions from './solutions.json'
 
 export const SOLVE_PUZZLE = (gridWidth, cellData, winningCombo, level) => {
-  helper.solvePuzzle(gridWidth, cellData.toJS(),winningCombo.toJS())
+  helper.solvePuzzle(gridWidth, cellData,winningCombo)
   return {
     type: 'SOLVE_PUZZLE',
     data: {
@@ -13,37 +14,26 @@ export const SOLVE_PUZZLE = (gridWidth, cellData, winningCombo, level) => {
   }
 }
 
-export const DRAG_CELL = (cellId, translations, translateX, translateY) => {
-  let newTranslations = translations.toJS()
-  newTranslations[cellId].translateX = translateX
-  newTranslations[cellId].translateY = translateY
-  return {
-    type: 'DRAG_CELL',
-    data: {
-      translations: newTranslations
-    }
-  }
-}
-
 export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
 
+  let cellDataArray = cellData.split('')
   let emptyCell = cellData.indexOf(0)
-  console.log('0 is at position ', emptyCell)
+  // console.log('0 is at position ', emptyCell)
   let index = emptyCell - move
 
   if (helper.moveIsLegal(gridWidth, index, move)) {
-    console.log('move', move, 'is legal')
-    cellData[emptyCell] = cellData[index]
-    cellData[index] = 0
+    // console.log('move', move, 'is legal')
+    cellDataArray[emptyCell] = cellData[index]
+    cellDataArray[index] = 0
   } else {
-    console.log('move', move, 'is illegal')
+    // console.log('move', move, 'is illegal')
   }
-  console.log(cellData)
+  // console.log(cellDataArray)
 
 
   const winner = () => {
     for (let i = 0; i < cellData.length; i++) {
-      if (cellData[i] != winningCombo[i]) {
+      if (cellDataArray[i] != winningCombo[i]) {
         return false
       }
     }
@@ -53,7 +43,7 @@ export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
   return {
     type: 'MOVE_CELLS',
     data: {
-      cellData: cellData,
+      cellData: cellDataArray.join(''),
       winner: winner()
     }
   }}
@@ -72,9 +62,13 @@ export const TIMER = (timeLeft) => {
 }
 
 export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
-  let newLevel = helper.randomLevel(gridWidth)
+  let possibleLevels = solutions[level]
+  let newLevel = Object.keys(possibleLevels)[helper.randomNum(0, Object.keys(possibleLevels).length - 1)]
+  let newLevelData = solutions[level][newLevel]
+  // console.log(newLevelData)
   let points = 0
   if (autoSolved == false) {
+    points+= 50
     if (timeLeft < 60 && timeLeft > 45) {
       points = 50 * gridWidth
     } else if (timeLeft < 46 && timeLeft > 30) {
@@ -86,14 +80,14 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
     }
   }
   let newScore = score + points
-  console.log(newScore)
+  // console.log(newScore)
 
   return {
     type: 'SET_LEVEL',
     data: {
       winner: false,
       level: level,
-      winningCombo: newLevel,
+      cellData: newLevel,
       autoSolved: false,
       timerIsRunning: false,
       timeLeft: 60,

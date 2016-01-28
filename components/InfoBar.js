@@ -12,10 +12,12 @@ class InfoBar extends React.Component {
   getCells() {
     const { gridWidth, winningCombo, cellColors } = this.props
     let cellSize = 30
-    return winningCombo.toJS().map((cell, i) => {
+    let winningComboArray = winningCombo.split('')
+    return winningComboArray.map((cell, i) => {
       return (
         <Cell
-          color={cellColors.toJS()[cell]}
+          opacity={cell / 7}
+          color={"#000000"}
           cellSize={cellSize}
           position={cell}
           borderWidth={3}

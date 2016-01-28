@@ -15,10 +15,12 @@ class Grid extends React.Component {
   getCells() {
     const { cellData, cellColors } = this.props
     let cellSize = 60
-    return cellData.toJS().map((cell, i) => {
+    let cellDataArray = cellData.split('')
+    return cellDataArray.map((cell, i) => {
       return (
         <Cell
-          color={cellColors.toJS()[cell]}
+          opacity={cell / 7}
+          color={"#000000"}
           cellSize={cellSize}
           position={cell}
           borderWidth={5}
@@ -36,6 +38,7 @@ class Grid extends React.Component {
         onStartShouldSetResponder={(evt) => true}
         onResponderGrant={(evt) => onCellResponderGrant(evt)}
         onResponderRelease={(evt) => onCellResponderRelease(evt)}
+        onResponderTerminationRequest={(evt) => true}
       >
         <View style={styles.grid}>
           {this.getCells()}

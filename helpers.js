@@ -1,18 +1,24 @@
 "use strict"
 
+export const randomNum = (min, max) => {
+  return Math.round(Math.random() * (max - min)) + min
+}
+
 export const moveCode = (gridWidth, Xdiff, Ydiff) => {
-  if (Math.abs(Xdiff) > Math.abs(Ydiff)) {
+  if (Math.abs(Xdiff) > 10 && Math.abs(Xdiff) > Math.abs(Ydiff)) {
     if (Xdiff < 0) {
       return -1
     } else {
       return 1
     }
-  } else {
+  } else if (Math.abs(Ydiff) > 10){
     if (Ydiff < 0) {
       return -(gridWidth)
     } else {
       return gridWidth
     }
+  } else {
+    return 0
   }
 }
 

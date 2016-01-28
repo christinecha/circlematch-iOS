@@ -25,30 +25,34 @@ class CircleMatch extends React.Component {
 
   componentDidUpdate() {
     const { dispatch, autoSolved, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
-    if (winner == true) {
-      dispatch(action.SET_LEVEL(level + 1, gridWidth, score, timeLeft, autoSolved))
+    if (winner && !modalIsOpen) {
       dispatch(action.OPEN_MODAL())
     }
   }
 
   closeModal() {
-    const { dispatch } = this.props
+    const { dispatch, autoSolved, gridWidth, level, score, timeLeft } = this.props
+    dispatch(action.SET_LEVEL(level + 1, gridWidth, score, timeLeft, autoSolved))
     dispatch(action.CLOSE_MODAL())
   }
 
   handleSwipeGrant(evt) {
+    console.log('touched')
     originalX = evt.nativeEvent.pageX
     originalY = evt.nativeEvent.pageY
   }
 
   handleSwipeRelease(evt) {
-    const { dispatch, cellData, gridWidth, translations, winner, winningCombo } = this.props
-    let Xdiff = evt.nativeEvent.pageX - originalX
-    let Ydiff = evt.nativeEvent.pageY - originalY
-    let move = helper.moveCode(gridWidth, Xdiff, Ydiff)
-    dispatch(action.MOVE_CELLS(gridWidth, cellData.toJS(), move, winningCombo.toJS()))
-    originalX = 0
-    originalY = 0
+    const { dispatch, cellData, gridWidth, modalIsOpen, translations, winner, winningCombo } = this.props
+    console.log('released, modal is ', modalIsOpen)
+    if (modalIsOpen == false) {
+      let Xdiff = evt.nativeEvent.pageX - originalX
+      let Ydiff = evt.nativeEvent.pageY - originalY
+      let move = helper.moveCode(gridWidth, Xdiff, Ydiff)
+      dispatch(action.MOVE_CELLS(gridWidth, cellData, move, winningCombo))
+      originalX = 0
+      originalY = 0
+    }
   }
 
   render() {
@@ -67,8 +71,6 @@ class CircleMatch extends React.Component {
       winner,
       winningCombo
     } = this.props
-
-    console.log('winner is ', winner)
 
     return (
       <View style={styles.container}>

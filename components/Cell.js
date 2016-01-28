@@ -13,7 +13,7 @@ class Cell extends React.Component {
 
 
   render() {
-    const { cellSize, position, color, index, borderWidth } = this.props
+    const { cellSize, position, color, index, borderWidth, opacity } = this.props
     let borderColor = '#eeeeee'
 
     if (color == 'transparent') {
@@ -27,6 +27,7 @@ class Cell extends React.Component {
         margin: borderWidth,
         justifyContent: 'center',
         alignItems: 'center',
+        opacity: opacity,
         minWidth: cellSize,
         minHeight: cellSize,
         maxHeight: cellSize,
