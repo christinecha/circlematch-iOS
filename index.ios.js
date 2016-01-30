@@ -22,15 +22,17 @@ store.dispatch({
     gridWidth: 3,
     cellData: '102345678',
     translations: [{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0}],
-    cellColors: ['transparent', '#a86ed4', '#d3b8bc', '#ffa56c', '#ffe273', '#b1c559', '#ed92a3', '#55bbc8', '#5585c6', '#8a6439', '#899089', '#ff683d', '#95287e', '#589542', '#ed60a3', '#55748e', '#d6e2c6'],
+    cellColors: '#002461',
     level: 1,
-    winningCombo: '012345678',
-    winner: false,
+    menuIsOpen: false,
+    menuView: 'Main.js',
     modalIsOpen: false,
     autoSolved: false,
     timeLeft: 60,
     timerIsRunning: false,
-    score: 0
+    score: 0,
+    winningCombo: '012345678',
+    winner: false
   }
 })
 

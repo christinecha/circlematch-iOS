@@ -2,12 +2,12 @@
 
 import React from 'react-native'
 import {connect} from 'react-redux/native'
-// import Modal from 'react-modal'
+import Hamburger from './_Hamburger.js'
 import Grid from './Grid.js'
 import InfoBar from './InfoBar.js'
 // import Toolbar from './Toolbar.jsx'
 import _NextLevel from './_NextLevel.js'
-import * as style from '../style.js'
+import _Menu from './_Menu.js'
 import * as action from '../actions.js'
 import * as helper from '../helpers.js'
 
@@ -15,11 +15,13 @@ const {
   StyleSheet,
   Modal,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } = React
 
 let originalX = 0
 let originalY = 0
+let timerLaunched = false
 
 class CircleMatch extends React.Component {
 
@@ -27,7 +29,25 @@ class CircleMatch extends React.Component {
     const { dispatch, autoSolved, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
     if (winner && !modalIsOpen) {
       dispatch(action.OPEN_MODAL())
+    } else if (timerIsRunning == false && timeLeft == 60 && timerLaunched == false) {
+      this.runTimer()
     }
+  }
+
+  runTimer() {
+    timerLaunched = true
+    let timer = setInterval(() => {
+      const { dispatch, timeLeft, timerIsRunning, winner, menuIsOpen, modalIsOpen } = this.props
+      if (winner == true || parseInt(timeLeft) <= 0 || modalIsOpen == true) {
+        clearInterval(timer)
+        timerLaunched = false
+      } else if (!timerIsRunning && menuIsOpen) {
+        //do nothing
+      } else {
+        let newTimeLeft = parseInt(timeLeft) - 1
+        dispatch(action.TIMER(newTimeLeft))
+      }
+    }, 1000)
   }
 
   closeModal() {
@@ -55,6 +75,16 @@ class CircleMatch extends React.Component {
     }
   }
 
+  openMenu() {
+    const { dispatch } = this.props
+    dispatch(action.OPEN_MENU())
+  }
+
+  closeMenu() {
+    const { dispatch } = this.props
+    dispatch(action.CLOSE_MENU())
+  }
+
   render() {
 
     const {
@@ -63,6 +93,8 @@ class CircleMatch extends React.Component {
       cellData,
       gridWidth,
       level,
+      menuIsOpen,
+      menuView,
       modalIsOpen,
       score,
       timerIsRunning,
@@ -74,7 +106,14 @@ class CircleMatch extends React.Component {
 
     return (
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => this.openMenu()}>
+          <View>
+            <Hamburger />
+          </View>
+        </TouchableOpacity>
         <Modal
+          animated={true}
           transparent={true}
           visible={modalIsOpen} >
           <_NextLevel
@@ -82,13 +121,15 @@ class CircleMatch extends React.Component {
             autoSolved={autoSolved}
             closeModal={() => this.closeModal()} />
         </Modal>
-        <Grid
-          gridWidth={gridWidth}
-          cellData={cellData}
-          cellColors={cellColors}
-          translations={translations}
-          onCellResponderGrant={(evt) => this.handleSwipeGrant(evt)}
-          onCellResponderRelease={(evt) => this.handleSwipeRelease(evt)} />
+        <Modal
+          animated={true}
+          transparent={true}
+          visible={menuIsOpen} >
+          <_Menu
+            level={level}
+            menuView={menuView}
+            closeMenu={() => this.closeMenu()} />
+        </Modal>
         <InfoBar
           gridWidth={gridWidth}
           cellColors={cellColors}
@@ -96,6 +137,16 @@ class CircleMatch extends React.Component {
           winningCombo={winningCombo}
           score={score}
           onSolveButtonClick = {() => this.solvePuzzle()} />
+        <Text style={styles.timer}>
+          00:{timeLeft}
+        </Text>
+        <Grid
+          gridWidth={gridWidth}
+          cellData={cellData}
+          cellColors={cellColors}
+          translations={translations}
+          onCellResponderGrant={(evt) => this.handleSwipeGrant(evt)}
+          onCellResponderRelease={(evt) => this.handleSwipeRelease(evt)} />
       </View>
     )
   }
@@ -106,7 +157,7 @@ let styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
   }
 });
 
@@ -117,6 +168,8 @@ function mapStateToProps(state) {
     cellData: state.get('cellData'),
     gridWidth: state.get('gridWidth'),
     level: state.get('level'),
+    menuIsOpen: state.get('menuIsOpen'),
+    menuView: state.get('menuView'),
     modalIsOpen: state.get('modalIsOpen'),
     score: state.get('score'),
     timerIsRunning: state.get('timerIsRunning'),

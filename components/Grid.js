@@ -14,13 +14,13 @@ class Grid extends React.Component {
 
   getCells() {
     const { cellData, cellColors } = this.props
-    let cellSize = 60
+    let cellSize = 80
     let cellDataArray = cellData.split('')
     return cellDataArray.map((cell, i) => {
       return (
         <Cell
           opacity={cell / 7}
-          color={"#000000"}
+          color={cellColors}
           cellSize={cellSize}
           position={cell}
           borderWidth={5}
@@ -52,14 +52,14 @@ let styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    maxHeight: 300,
+    maxHeight: 200,
     marginTop: 50,
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   grid: {
-    width: 230,
-    height: 230,
+    width: 290,
+    height: 290,
     backgroundColor: '#eee',
     padding: 10,
     flexDirection: 'row',

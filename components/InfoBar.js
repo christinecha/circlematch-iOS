@@ -34,12 +34,12 @@ class InfoBar extends React.Component {
       container: {
         flex: 1,
         justifyContent: 'center',
-        maxHeight: 250
+        maxHeight: 150
       },
       scoreboard: {
         padding: 5,
         backgroundColor: '#55bbc8',
-        width: 230,
+        width: 290,
         alignItems: 'center'
       },
       score: {
@@ -47,7 +47,7 @@ class InfoBar extends React.Component {
         color: '#ffffff',
       },
       level: {
-        width: 230,
+        width: 290,
         alignItems: 'center',
         backgroundColor: '#eeeeee',
         padding: 5
@@ -85,17 +85,6 @@ class InfoBar extends React.Component {
         </View>
         <View style={styles.level}>
           <Text>LEVEL {this.props.level}</Text>
-        </View>
-        <View style={styles.levelInfo}>
-          <Text>YOUR GOAL</Text>
-          <View style={styles.grid}>
-            {this.getCells()}
-          </View>
-          <View
-            style={styles.solveButton}
-            onClick={() => this.props.onSolveButtonClick}>
-            <Text>SOLVE</Text>
-          </View>
         </View>
       </View>
     )

@@ -25,7 +25,9 @@ function reducer(state = Map(), action) {
       return setState(state, action.data)
     case 'RANDOMIZE_COLORS':
       return setState(state, action.data)
-    case 'RESIZE_GRID':
+    case 'OPEN_MENU':
+      return setState(state, action.data)
+    case 'CLOSE_MENU':
       return setState(state, action.data)
   }
   return state
