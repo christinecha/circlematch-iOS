@@ -85,6 +85,11 @@ class CircleMatch extends React.Component {
     dispatch(action.CLOSE_MENU())
   }
 
+  randomizeColor() {
+    const { dispatch } = this.props
+    dispatch(action.RANDOMIZE_COLORS())
+  }
+
   render() {
 
     const {
@@ -106,12 +111,9 @@ class CircleMatch extends React.Component {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => this.openMenu()}>
-          <View>
-            <Hamburger />
-          </View>
-        </TouchableOpacity>
+
+        <Hamburger
+          openMenu={() => this.openMenu()} />
         <Modal
           animated={true}
           transparent={true}
@@ -119,6 +121,7 @@ class CircleMatch extends React.Component {
           <_NextLevel
             level={level}
             autoSolved={autoSolved}
+            timeLeft={timeLeft}
             closeModal={() => this.closeModal()} />
         </Modal>
         <Modal
@@ -128,6 +131,8 @@ class CircleMatch extends React.Component {
           <_Menu
             level={level}
             menuView={menuView}
+            cellColors={cellColors}
+            randomizeColor={() => this.randomizeColor()}
             closeMenu={() => this.closeMenu()} />
         </Modal>
         <InfoBar
@@ -136,6 +141,7 @@ class CircleMatch extends React.Component {
           level={level}
           winningCombo={winningCombo}
           score={score}
+          timeLeft={timeLeft}
           onSolveButtonClick = {() => this.solvePuzzle()} />
         <Text style={styles.timer}>
           00:{timeLeft}
@@ -157,7 +163,7 @@ let styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f1f2',
   }
 });
 

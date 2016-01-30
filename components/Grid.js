@@ -16,10 +16,13 @@ class Grid extends React.Component {
     const { cellData, cellColors } = this.props
     let cellSize = 80
     let cellDataArray = cellData.split('')
+    let opacityScale = 7.5
+
     return cellDataArray.map((cell, i) => {
+
       return (
         <Cell
-          opacity={cell / 7}
+          opacity={cell / 8}
           color={cellColors}
           cellSize={cellSize}
           position={cell}
@@ -54,13 +57,11 @@ let styles = StyleSheet.create({
     justifyContent: 'center',
     maxHeight: 200,
     marginTop: 50,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
   grid: {
     width: 290,
     height: 290,
-    backgroundColor: '#eee',
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',

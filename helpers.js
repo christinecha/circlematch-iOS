@@ -47,19 +47,20 @@ export const moveIsLegal = (gridWidth, index, move) => {
 
 export const getPoints = (level, timeLeft) => {
   let points = 50
+  let levelBonus = Math.ceil(level / 3)
 
   if (timeLeft <= 60 && timeLeft > 55) {
-    points += (100 * level)
+    points += (100 * levelBonus)
   } else if (timeLeft < 56 && timeLeft > 50) {
-    points += (50 * level)
+    points += (50 * levelBonus)
   } else if (timeLeft < 51 && timeLeft > 40) {
-    points += (30 * level)
+    points += (30 * levelBonus)
   } else if (timeLeft < 41 && timeLeft > 30) {
-    points += (20 * level)
+    points += (20 * levelBonus)
   } else if (timeLeft < 31 && timeLeft > 15) {
-    points += (10 * level)
+    points += (10 * levelBonus)
   } else if (timeLeft < 16 && timeLeft > 0) {
-    points += (5 * level)
+    points += (5 * levelBonus)
   }
 
   return points

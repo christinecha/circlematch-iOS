@@ -4,18 +4,24 @@ import React from 'react-native'
 
 const {
   StyleSheet,
-  View
+  View,
+  TouchableOpacity
 } = React
 
 class Hamburger extends React.Component {
 
   render() {
+    const {openMenu} = this.props
+
     return (
-      <View style={styles.container}>
-        <View style={styles.bar}></View>
-        <View style={styles.bar}></View>
-        <View style={styles.bar}></View>
-      </View>
+      <TouchableOpacity
+        onPress={() => openMenu()}>
+        <View style={styles.container}>
+          <View style={styles.bar}></View>
+          <View style={styles.bar}></View>
+          <View style={styles.bar}></View>
+        </View>
+      </TouchableOpacity>
     )
   }
 
