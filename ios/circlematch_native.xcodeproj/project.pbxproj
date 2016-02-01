@@ -22,6 +22,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9714CC771C5F98F300F2D2A2 /* Biko_Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9714CC751C5F8BE000F2D2A2 /* Biko_Black.otf */; };
+		9714CC781C5F98F600F2D2A2 /* Biko_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9714CC761C5F8BE000F2D2A2 /* Biko_Bold.otf */; };
+		9714CC7B1C5FB59B00F2D2A2 /* Geo-Oblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9714CC791C5FB59B00F2D2A2 /* Geo-Oblique.ttf */; };
+		9714CC7C1C5FB59B00F2D2A2 /* Geo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9714CC7A1C5FB59B00F2D2A2 /* Geo-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +132,8 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		9714CC751C5F8BE000F2D2A2 /* Biko_Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Biko_Black.otf; path = circlematch_native/fonts/Biko_Black.otf; sourceTree = "<group>"; };
 		9714CC761C5F8BE000F2D2A2 /* Biko_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Biko_Bold.otf; path = circlematch_native/fonts/Biko_Bold.otf; sourceTree = "<group>"; };
+		9714CC791C5FB59B00F2D2A2 /* Geo-Oblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Geo-Oblique.ttf"; path = "../../../../Downloads/Geo/Geo-Oblique.ttf"; sourceTree = "<group>"; };
+		9714CC7A1C5FB59B00F2D2A2 /* Geo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Geo-Regular.ttf"; path = "../../../../Downloads/Geo/Geo-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +295,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9714CC791C5FB59B00F2D2A2 /* Geo-Oblique.ttf */,
+				9714CC7A1C5FB59B00F2D2A2 /* Geo-Regular.ttf */,
 				9714CC751C5F8BE000F2D2A2 /* Biko_Black.otf */,
 				9714CC761C5F8BE000F2D2A2 /* Biko_Bold.otf */,
 				13B07FAE1A68108700A75B9A /* circlematch_native */,
@@ -509,6 +517,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9714CC771C5F98F300F2D2A2 /* Biko_Black.otf in Resources */,
+				9714CC7B1C5FB59B00F2D2A2 /* Geo-Oblique.ttf in Resources */,
+				9714CC781C5F98F600F2D2A2 /* Biko_Bold.otf in Resources */,
+				9714CC7C1C5FB59B00F2D2A2 /* Geo-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);

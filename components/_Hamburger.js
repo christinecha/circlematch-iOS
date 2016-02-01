@@ -11,7 +11,23 @@ const {
 class Hamburger extends React.Component {
 
   render() {
-    const {openMenu} = this.props
+    const {colorScheme, openMenu} = this.props
+
+    let styles = StyleSheet.create ({
+      container: {
+        flex: 1,
+        height: 30,
+        width: 30,
+        marginLeft: 330,
+        marginTop: 30
+      },
+      bar: {
+        backgroundColor: 'rgb(' + colorScheme.toJS().cell + ')',
+        opacity: 0.8,
+        height: 6,
+        marginBottom: 4
+      }
+    })
 
     return (
       <TouchableOpacity
@@ -26,20 +42,5 @@ class Hamburger extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create ({
-  container: {
-    flex: 1,
-    height: 30,
-    width: 30,
-    marginLeft: 350,
-    marginTop: 30
-  },
-  bar: {
-    backgroundColor: '#ccc',
-    height: 6,
-    marginBottom: 4
-  }
-})
 
 export default Hamburger

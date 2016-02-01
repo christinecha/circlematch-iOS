@@ -128,7 +128,7 @@ export const TOGGLE_BACKGROUND_COLOR = (colorScheme) => {
 
   if (colorScheme.toJS().name == 'day') {
     newName = 'night'
-    newBackgroundColor = '0,0,5'
+    newBackgroundColor = '10,10,15'
   } else if (colorScheme.toJS().name == 'night') {
     newName = 'day'
     newBackgroundColor = '241,241,242'

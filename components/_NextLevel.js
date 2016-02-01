@@ -1,7 +1,7 @@
 "use strict"
 
 import React from 'react-native'
-import {getPoints} from '../helpers.js'
+import * as helper from '../helpers.js'
 
 const {
   StyleSheet,
@@ -10,13 +10,48 @@ const {
   TouchableOpacity
 } = React
 
+let compliments = [
+  "You're a genius.", "You rock!", "You did it!", "Amazing!", "Woohoo!", "Oh yeah!", "You're so smart!", "Success!"
+]
+
 class _NextLevel extends React.Component {
 
   render() {
-    const {level, closeModal, autoSolved, timeLeft} = this.props
+    const {level, closeModal, colorScheme, autoSolved, timeLeft} = this.props
 
-    let announcement = 'woohoo!'
-    let points = getPoints(level, timeLeft) - 50
+    let styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        minHeight: 800,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 200,
+        backgroundColor: 'rgba(' + colorScheme.toJS().background + ', 0.8)'
+      },
+      text: {
+        fontFamily: 'Geo',
+        color: '#444444'
+      },
+      announcement: {
+        fontSize: 20,
+        marginBottom: 30
+      },
+      points: {
+        fontSize: 30,
+        color: 'rgba(' + colorScheme.toJS().cell + ', 1)'
+      },
+      speedBonus: {
+        fontSize: 30,
+        color: 'rgba(' + colorScheme.toJS().cell + ', .5)'
+      },
+      continue: {
+        marginTop: 40,
+        fontSize: 16
+      }
+    })
+
+    let announcement = compliments[helper.randomNum(0, compliments.length - 1)]
+    let points = helper.getPoints(level, timeLeft) - 50
 
     if (autoSolved == true) {
       announcement = 'auto-solved!'
@@ -26,28 +61,15 @@ class _NextLevel extends React.Component {
     return (
       <TouchableOpacity onPress={() => closeModal()}>
         <View style={styles.container}>
-          <Text>{announcement}</Text>
-          <Text style={styles.points}>+ 50 points</Text>
-          <Text style={styles.points}>+ {points} speed bonus</Text>
-          <Text style={{marginTop: 20}}>tap to continue</Text>
+          <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
+          <Text style={[styles.text, styles.points]}>+ 50 points</Text>
+          <Text style={[styles.text, styles.speedBonus]}>+ {points} speed bonus</Text>
+          <Text style={[styles.text, styles.continue]}>tap to continue</Text>
         </View>
       </TouchableOpacity>
     )
   }
 }
 
-let styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    minHeight: 800,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 300,
-    backgroundColor: 'rgba(241,241,242,0.8)'
-  },
-  points: {
-    fontSize: 30
-  }
-})
 
 export default _NextLevel

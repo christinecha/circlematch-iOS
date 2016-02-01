@@ -95,6 +95,11 @@ class CircleMatch extends React.Component {
     dispatch(action.TOGGLE_BACKGROUND_COLOR(colorScheme))
   }
 
+  autoSolve() {
+    const { dispatch, cellData } = this.props
+    dispatch(action.SOLVE_PUZZLE(cellData))
+  }
+
   render() {
 
     const {
@@ -125,8 +130,8 @@ class CircleMatch extends React.Component {
 
     return (
       <View style={styles.container}>
-
         <Hamburger
+          colorScheme={colorScheme}
           openMenu={() => this.openMenu()} />
         <Modal
           animated={true}
@@ -135,6 +140,7 @@ class CircleMatch extends React.Component {
           <_NextLevel
             level={level}
             autoSolved={autoSolved}
+            colorScheme={colorScheme}
             timeLeft={timeLeft}
             closeModal={() => this.closeModal()} />
         </Modal>
@@ -158,9 +164,6 @@ class CircleMatch extends React.Component {
           score={score}
           timeLeft={timeLeft}
           onSolveButtonClick = {() => this.solvePuzzle()} />
-        <Text style={styles.timer}>
-          00:{timeLeft}
-        </Text>
         <Grid
           gridWidth={gridWidth}
           cellData={cellData}

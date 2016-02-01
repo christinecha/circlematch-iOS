@@ -24,7 +24,7 @@ store.dispatch({
     cellData: '102345678',
     colorScheme: {
       name: 'day',
-      cell: '0, 36, 97',
+      cell: '120, 125, 130',
       background: '241, 241, 242'
     },
     level: 1,

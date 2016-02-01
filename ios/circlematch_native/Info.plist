@@ -26,6 +26,8 @@
 	<array>
 		<string>Biko_Black.otf</string>
 		<string>Biko_Bold.otf</string>
+		<string>Geo-Oblique.ttf</string>
+		<string>Geo-Regular.ttf</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

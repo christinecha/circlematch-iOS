@@ -40,7 +40,8 @@ class _Menu extends React.Component {
       },
       optionText: {
         fontSize: 20,
-        color: '#fff'
+        color: '#fff',
+        fontFamily: 'Geo'
       }
     })
 
@@ -66,6 +67,12 @@ class _Menu extends React.Component {
         alignItems: 'center',
         paddingTop: 200,
         backgroundColor: 'rgba(' + colorScheme.toJS().background + ', .8)'
+      },
+      text: {
+        marginTop: 40,
+        fontFamily: 'Geo',
+        fontSize: 16,
+        color: '#888888'
       }
     })
 
@@ -73,7 +80,7 @@ class _Menu extends React.Component {
       <TouchableOpacity onPress={() => closeMenu()}>
         <View style={styles.container}>
           {this.getMenuOptions()}
-          <Text style={{marginTop: 30}}>tap to resume game</Text>
+          <Text style={styles.text}>tap to resume game</Text>
         </View>
       </TouchableOpacity>
     )
