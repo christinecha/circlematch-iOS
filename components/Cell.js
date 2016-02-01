@@ -22,7 +22,7 @@ class Cell extends React.Component {
 
     const styles = StyleSheet.create({
       gridCell: {
-        backgroundColor: color,
+        backgroundColor: 'rgb(' + color + ')',
         borderColor: borderColor,
         margin: borderWidth,
         justifyContent: 'center',

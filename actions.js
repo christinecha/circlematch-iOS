@@ -98,19 +98,50 @@ export const OPEN_MODAL = () => {
   }
 }
 
-export const RANDOMIZE_COLORS = () => {
-  let characters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+export const RANDOMIZE_COLORS = (colorScheme) => {
 
-  let hexCode = '#'
-  for (let i = 0; i < 6; i++) {
-     let random = Math.round(Math.random() * (characters.length - 1))
-     hexCode += characters[random]
+  let color = []
+  for (let i = 0; i < 3; i++) {
+     let random = Math.round(Math.random() * (255))
+     color.push(random)
   }
+
+  color = color.join(',')
 
   return {
     type: 'RANDOMIZE_COLORS',
     data: {
-      cellColors: hexCode
+      colorScheme: {
+        name: colorScheme.toJS().name,
+        background: colorScheme.toJS().background,
+        cell: color
+      }
+    }
+  }
+}
+
+export const TOGGLE_BACKGROUND_COLOR = (colorScheme) => {
+
+  let newName = colorScheme.toJS().name
+  let newBackgroundColor = colorScheme.toJS().background
+  let newCellColor = colorScheme.toJS().cell
+
+  if (colorScheme.toJS().name == 'day') {
+    newName = 'night'
+    newBackgroundColor = '0,0,5'
+  } else if (colorScheme.toJS().name == 'night') {
+    newName = 'day'
+    newBackgroundColor = '241,241,242'
+  }
+
+  return {
+    type: 'TOGGLE_BACKGROUND_COLOR',
+    data: {
+      colorScheme: {
+        name: newName,
+        cell: newCellColor,
+        background: newBackgroundColor
+      }
     }
   }
 }

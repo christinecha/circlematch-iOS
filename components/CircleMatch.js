@@ -86,15 +86,20 @@ class CircleMatch extends React.Component {
   }
 
   randomizeColor() {
-    const { dispatch } = this.props
-    dispatch(action.RANDOMIZE_COLORS())
+    const { dispatch, colorScheme } = this.props
+    dispatch(action.RANDOMIZE_COLORS(colorScheme))
+  }
+
+  toggleBackgroundColor() {
+    const { dispatch, colorScheme } = this.props
+    dispatch(action.TOGGLE_BACKGROUND_COLOR(colorScheme))
   }
 
   render() {
 
     const {
       autoSolved,
-      cellColors,
+      colorScheme,
       cellData,
       gridWidth,
       level,
@@ -108,6 +113,15 @@ class CircleMatch extends React.Component {
       winner,
       winningCombo
     } = this.props
+
+    let styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(' + colorScheme.toJS().background + ')',
+      }
+    });
 
     return (
       <View style={styles.container}>
@@ -131,13 +145,14 @@ class CircleMatch extends React.Component {
           <_Menu
             level={level}
             menuView={menuView}
-            cellColors={cellColors}
+            colorScheme={colorScheme}
             randomizeColor={() => this.randomizeColor()}
+            toggleBackgroundColor={() => this.toggleBackgroundColor()}
             closeMenu={() => this.closeMenu()} />
         </Modal>
         <InfoBar
           gridWidth={gridWidth}
-          cellColors={cellColors}
+          colorScheme={colorScheme}
           level={level}
           winningCombo={winningCombo}
           score={score}
@@ -149,7 +164,7 @@ class CircleMatch extends React.Component {
         <Grid
           gridWidth={gridWidth}
           cellData={cellData}
-          cellColors={cellColors}
+          colorScheme={colorScheme}
           translations={translations}
           onCellResponderGrant={(evt) => this.handleSwipeGrant(evt)}
           onCellResponderRelease={(evt) => this.handleSwipeRelease(evt)} />
@@ -158,19 +173,11 @@ class CircleMatch extends React.Component {
   }
 }
 
-let styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f1f1f2',
-  }
-});
-
 function mapStateToProps(state) {
   return {
     autoSolved: state.get('autoSolved'),
-    cellColors: state.get('cellColors'),
+    backgroundColor: state.get('backgroundColor'),
+    colorScheme: state.get('colorScheme'),
     cellData: state.get('cellData'),
     gridWidth: state.get('gridWidth'),
     level: state.get('level'),

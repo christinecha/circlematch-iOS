@@ -19,10 +19,14 @@ const store = createStore(reducer)
 store.dispatch({
   type: 'SET_INITIAL_STATE',
   data: {
+    backgroundColor: '#f1f1f2',
     gridWidth: 3,
     cellData: '102345678',
-    translations: [{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0},{translateX:0, translateY:0}],
-    cellColors: '#002461',
+    colorScheme: {
+      name: 'day',
+      cell: '0, 36, 97',
+      background: '241, 241, 242'
+    },
     level: 1,
     menuIsOpen: false,
     menuView: 'Main.js',
@@ -64,7 +68,6 @@ class App extends React.Component {
           component: CircleMatchContainer
         }}
         renderScene={(route, navigator) => {
-          console.log(route, navigator);
           if (route.component) {
             return React.createElement(route.component, { navigator });
           }

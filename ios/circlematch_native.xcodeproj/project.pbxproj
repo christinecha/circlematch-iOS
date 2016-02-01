@@ -126,6 +126,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		9714CC751C5F8BE000F2D2A2 /* Biko_Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Biko_Black.otf; path = circlematch_native/fonts/Biko_Black.otf; sourceTree = "<group>"; };
+		9714CC761C5F8BE000F2D2A2 /* Biko_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Biko_Bold.otf; path = circlematch_native/fonts/Biko_Bold.otf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +289,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9714CC751C5F8BE000F2D2A2 /* Biko_Black.otf */,
+				9714CC761C5F8BE000F2D2A2 /* Biko_Bold.otf */,
 				13B07FAE1A68108700A75B9A /* circlematch_native */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* circlematch_nativeTests */,

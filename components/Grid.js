@@ -13,7 +13,7 @@ const {
 class Grid extends React.Component {
 
   getCells() {
-    const { cellData, cellColors } = this.props
+    const { cellData, colorScheme } = this.props
     let cellSize = 80
     let cellDataArray = cellData.split('')
     let opacityScale = 7.5
@@ -23,7 +23,7 @@ class Grid extends React.Component {
       return (
         <Cell
           opacity={cell / 8}
-          color={cellColors}
+          color={colorScheme.toJS().cell}
           cellSize={cellSize}
           position={cell}
           borderWidth={5}
@@ -34,7 +34,7 @@ class Grid extends React.Component {
   }
 
   render() {
-    const { gridWidth, cellData, cellColors, animation, onCellResponderGrant, onCellResponderRelease } = this.props
+    const { gridWidth, cellData, colorScheme, animation, onCellResponderGrant, onCellResponderRelease } = this.props
     return (
       <View
         style={styles.container}
@@ -64,7 +64,7 @@ let styles = StyleSheet.create({
     height: 290,
     padding: 10,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   instructions: {
     textAlign: 'center',

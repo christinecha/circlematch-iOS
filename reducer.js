@@ -25,6 +25,8 @@ function reducer(state = Map(), action) {
       return setState(state, action.data)
     case 'RANDOMIZE_COLORS':
       return setState(state, action.data)
+    case 'TOGGLE_BACKGROUND_COLOR':
+      return setState(state, action.data)
     case 'OPEN_MENU':
       return setState(state, action.data)
     case 'CLOSE_MENU':

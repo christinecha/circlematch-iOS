@@ -12,13 +12,20 @@ const {
 class _Menu extends React.Component {
 
   getMenuOptions() {
-    const {cellColors, randomizeColor} = this.props
+    const {colorScheme, randomizeColor, toggleBackgroundColor} = this.props
+
+    let colorMode = colorScheme.toJS().name
+    if (colorMode == 'day') {
+      colorMode = 'night'
+    } else if (colorMode == 'night') {
+      colorMode = 'day'
+    }
 
     let menuOptions = [
       {name: 'auto-solve', action: ''},
       {name: 'start over', action: ''},
       {name: 'randomize color', action: () => randomizeColor()},
-      {name: 'night mode', action: () => randomizeColor()}
+      {name: colorMode + ' mode', action: () => toggleBackgroundColor()}
     ]
 
     let styles = StyleSheet.create({
@@ -28,7 +35,7 @@ class _Menu extends React.Component {
         width: 300,
         alignItems: 'center',
         marginBottom: 5,
-        backgroundColor: cellColors,
+        backgroundColor: 'rgb(' + colorScheme.toJS().cell + ')',
         borderRadius: 22
       },
       optionText: {
@@ -49,7 +56,7 @@ class _Menu extends React.Component {
   }
 
   render() {
-    const {level, closeMenu} = this.props
+    const {level, colorScheme, closeMenu} = this.props
 
     let styles = StyleSheet.create({
       container: {
@@ -58,7 +65,7 @@ class _Menu extends React.Component {
         justifyContent: 'flex-start',
         alignItems: 'center',
         paddingTop: 200,
-        backgroundColor: 'rgba(255,255,255,0.9)'
+        backgroundColor: 'rgba(' + colorScheme.toJS().background + ', .8)'
       }
     })
 

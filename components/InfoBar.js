@@ -10,7 +10,7 @@ const {
 class InfoBar extends React.Component {
 
   render() {
-    const { gridWidth, cellColors, score, winner } = this.props
+    const { gridWidth, colorScheme, score, winner } = this.props
     return (
       <View style={styles.container}>
         <View style={styles.scoreboard}>
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 22,
     color: '#ffffff',
+    fontFamily: 'Helvetica',
   },
   level: {
     width: 290,
