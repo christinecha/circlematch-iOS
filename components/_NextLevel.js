@@ -17,7 +17,7 @@ let compliments = [
 class _NextLevel extends React.Component {
 
   render() {
-    const {level, closeModal, colorScheme, autoSolved, timeLeft} = this.props
+    const {level, closeModal, colorScheme, autoSolved, score, timeLeft} = this.props
 
     let styles = StyleSheet.create({
       container: {
@@ -30,7 +30,7 @@ class _NextLevel extends React.Component {
       },
       text: {
         fontFamily: 'Geo',
-        color: '#444444'
+        color: '#aaaaaa'
       },
       announcement: {
         fontSize: 20,
@@ -45,7 +45,6 @@ class _NextLevel extends React.Component {
         color: 'rgba(' + colorScheme.toJS().cell + ', .5)'
       },
       continue: {
-        marginTop: 40,
         fontSize: 16
       }
     })
@@ -65,6 +64,7 @@ class _NextLevel extends React.Component {
           <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
           <Text style={[styles.text, styles.points]}>+ {points} points</Text>
           <Text style={[styles.text, styles.speedBonus]}>+ {speedBonus} speed bonus</Text>
+          <Text style={[styles.text, styles.announcement]}>{score + points + speedBonus} PTS &nbsp; | &nbsp; LEVEL {level}</Text>
           <Text style={[styles.text, styles.continue]}>tap to continue</Text>
         </View>
       </TouchableOpacity>

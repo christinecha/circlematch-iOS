@@ -10,7 +10,7 @@ const {
   TouchableOpacity
 } = React
 
-class Hamburger extends React.Component {
+class MenuButton extends React.Component {
 
   render() {
     const {colorScheme, openMenu} = this.props
@@ -18,7 +18,8 @@ class Hamburger extends React.Component {
     let styles = StyleSheet.create ({
       container: {
         flex: 1,
-        paddingTop: 40
+        paddingTop: 40,
+        marginTop: 50
       },
       menuButton: {
         width: 20,
@@ -40,4 +41,4 @@ class Hamburger extends React.Component {
 
 }
 
-export default Hamburger
+export default MenuButton

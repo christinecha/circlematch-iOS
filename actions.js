@@ -75,7 +75,6 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
   let newLevel = Math.floor(newScore / 1000) + 1
 
   let possibleLevels = solutions[level]
-  // console.log(solutions)
   let newPuzzle = possibleLevels[helper.randomNum(0, possibleLevels.length - 1)]
 
   return {

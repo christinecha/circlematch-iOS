@@ -2,10 +2,9 @@
 
 import React from 'react-native'
 import {connect} from 'react-redux/native'
-import Hamburger from './_Hamburger.js'
+import MenuButton from './_MenuButton.js'
 import Grid from './Grid.js'
 import Timer from './Timer.js'
-// import Toolbar from './Toolbar.jsx'
 import _NextLevel from './_NextLevel.js'
 import _Menu from './_Menu.js'
 import * as action from '../actions.js'
@@ -133,7 +132,7 @@ class CircleMatch extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Hamburger
+        <MenuButton
           colorScheme={colorScheme}
           openMenu={() => this.openMenu()} />
         <Modal
@@ -144,6 +143,7 @@ class CircleMatch extends React.Component {
             level={level}
             autoSolved={autoSolved}
             colorScheme={colorScheme}
+            score={score}
             timeLeft={timeLeft}
             closeModal={() => this.closeModal()} />
         </Modal>
