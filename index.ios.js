@@ -19,12 +19,13 @@ const store = createStore(reducer)
 store.dispatch({
   type: 'SET_INITIAL_STATE',
   data: {
+    animations: [],
     backgroundColor: '#f1f1f2',
     gridWidth: 3,
     cellData: '102345678',
     colorScheme: {
       name: 'day',
-      cell: '120, 125, 130',
+      cell: '59, 192, 203',
       background: '241, 241, 242'
     },
     level: 1,

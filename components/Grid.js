@@ -13,15 +13,21 @@ const {
 class Grid extends React.Component {
 
   getCells() {
-    const { cellData, colorScheme } = this.props
+    const { animations, cellData, colorScheme } = this.props
     let cellSize = 80
     let cellDataArray = cellData.split('')
     let opacityScale = 7.5
 
     return cellDataArray.map((cell, i) => {
 
+      let cellAnimation = ''
+      if (animations.toJS()[cell]) {
+        cellAnimation = animations.toJS()[cell]
+      }
+
       return (
         <Cell
+          animation={cellAnimation}
           opacity={cell / 8}
           color={colorScheme.toJS().cell}
           cellSize={cellSize}
@@ -55,8 +61,8 @@ let styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    maxHeight: 200,
     marginTop: 50,
+    maxHeight: 300,
     alignItems: 'center'
   },
   grid: {

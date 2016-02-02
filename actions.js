@@ -2,8 +2,8 @@
 import * as helper from './helpers.js'
 import {solutions} from './solutions.js'
 
-export const SOLVE_PUZZLE = (gridWidth, cellData, winningCombo, level) => {
-  helper.solvePuzzle(gridWidth, cellData,winningCombo)
+export const SOLVE_PUZZLE = (cellData, level) => {
+  // helper.solvePuzzle(gridWidth, cellData,winningCombo)
   return {
     type: 'SOLVE_PUZZLE',
     data: {
@@ -102,7 +102,7 @@ export const RANDOMIZE_COLORS = (colorScheme) => {
 
   let color = []
   for (let i = 0; i < 3; i++) {
-     let random = Math.round(Math.random() * (255))
+     let random = Math.round(helper.randomNum(50, 230))
      color.push(random)
   }
 

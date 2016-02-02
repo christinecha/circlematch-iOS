@@ -5,6 +5,8 @@ import React from 'react-native'
 const {
   StyleSheet,
   View,
+  Text,
+  Image,
   TouchableOpacity
 } = React
 
@@ -16,16 +18,11 @@ class Hamburger extends React.Component {
     let styles = StyleSheet.create ({
       container: {
         flex: 1,
-        height: 30,
-        width: 30,
-        marginLeft: 330,
-        marginTop: 30
+        paddingTop: 40
       },
-      bar: {
-        backgroundColor: 'rgb(' + colorScheme.toJS().cell + ')',
-        opacity: 0.8,
-        height: 6,
-        marginBottom: 4
+      menuButton: {
+        width: 20,
+        height: 20
       }
     })
 
@@ -33,9 +30,9 @@ class Hamburger extends React.Component {
       <TouchableOpacity
         onPress={() => openMenu()}>
         <View style={styles.container}>
-          <View style={styles.bar}></View>
-          <View style={styles.bar}></View>
-          <View style={styles.bar}></View>
+          <Image
+            style={styles.menuButton}
+            source={require('../assets/caret.png')} />
         </View>
       </TouchableOpacity>
     )

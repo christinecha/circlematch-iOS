@@ -11,7 +11,7 @@ const {
 } = React
 
 let compliments = [
-  "You're a genius.", "You rock!", "You did it!", "Amazing!", "Woohoo!", "Oh yeah!", "You're so smart!", "Success!"
+  "You're a genius.", "You rock!", "You did it!", "Amazing!", "Woohoo!", "Oh yeah!", "You're so smart!", "Success!", "You rock my socks.", "Killin' it!", "Hip hip, hooray!"
 ]
 
 class _NextLevel extends React.Component {
@@ -51,19 +51,20 @@ class _NextLevel extends React.Component {
     })
 
     let announcement = compliments[helper.randomNum(0, compliments.length - 1)]
-    let points = helper.getPoints(level, timeLeft) - 50
+    let points = 50
+    let speedBonus = helper.getPoints(level, timeLeft) - 50
 
     if (autoSolved == true) {
       announcement = 'auto-solved!'
-      let points = 0
+      points = 0
     }
 
     return (
       <TouchableOpacity onPress={() => closeModal()}>
         <View style={styles.container}>
           <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
-          <Text style={[styles.text, styles.points]}>+ 50 points</Text>
-          <Text style={[styles.text, styles.speedBonus]}>+ {points} speed bonus</Text>
+          <Text style={[styles.text, styles.points]}>+ {points} points</Text>
+          <Text style={[styles.text, styles.speedBonus]}>+ {speedBonus} speed bonus</Text>
           <Text style={[styles.text, styles.continue]}>tap to continue</Text>
         </View>
       </TouchableOpacity>

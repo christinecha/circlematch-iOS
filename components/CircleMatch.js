@@ -4,7 +4,7 @@ import React from 'react-native'
 import {connect} from 'react-redux/native'
 import Hamburger from './_Hamburger.js'
 import Grid from './Grid.js'
-import InfoBar from './InfoBar.js'
+import Timer from './Timer.js'
 // import Toolbar from './Toolbar.jsx'
 import _NextLevel from './_NextLevel.js'
 import _Menu from './_Menu.js'
@@ -16,7 +16,8 @@ const {
   Modal,
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } = React
 
 let originalX = 0
@@ -49,6 +50,16 @@ class CircleMatch extends React.Component {
       }
     }, 1000)
   }
+
+  // animateCell() {
+  //   Animated.spring(                          // Base: spring, decay, timing
+  //     this.state.bounceValue,                 // Animate `bounceValue`
+  //     {
+  //       toValue: 0.8,                         // Animate to smaller size
+  //       friction: 1,                          // Bouncier spring
+  //     }
+  //   ).start()
+  // }
 
   closeModal() {
     const { dispatch, autoSolved, gridWidth, level, score, timeLeft } = this.props
@@ -96,13 +107,15 @@ class CircleMatch extends React.Component {
   }
 
   autoSolve() {
-    const { dispatch, cellData } = this.props
-    dispatch(action.SOLVE_PUZZLE(cellData))
+    const { dispatch, autoSolved, cellData, gridWidth, level, score, timeLeft } = this.props
+    this.closeMenu()
+    dispatch(action.SOLVE_PUZZLE(cellData, level))
   }
 
   render() {
 
     const {
+      animations,
       autoSolved,
       colorScheme,
       cellData,
@@ -152,19 +165,19 @@ class CircleMatch extends React.Component {
             level={level}
             menuView={menuView}
             colorScheme={colorScheme}
+            score={score}
+            autoSolve={() => this.autoSolve()}
             randomizeColor={() => this.randomizeColor()}
             toggleBackgroundColor={() => this.toggleBackgroundColor()}
             closeMenu={() => this.closeMenu()} />
         </Modal>
-        <InfoBar
-          gridWidth={gridWidth}
+        <Timer
           colorScheme={colorScheme}
           level={level}
-          winningCombo={winningCombo}
           score={score}
-          timeLeft={timeLeft}
-          onSolveButtonClick = {() => this.solvePuzzle()} />
+          timeLeft={timeLeft} />
         <Grid
+          animations={animations}
           gridWidth={gridWidth}
           cellData={cellData}
           colorScheme={colorScheme}
@@ -178,6 +191,7 @@ class CircleMatch extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    animations: state.get('animations'),
     autoSolved: state.get('autoSolved'),
     backgroundColor: state.get('backgroundColor'),
     colorScheme: state.get('colorScheme'),

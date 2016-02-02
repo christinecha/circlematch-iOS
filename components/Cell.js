@@ -13,7 +13,7 @@ class Cell extends React.Component {
 
 
   render() {
-    const { cellSize, position, color, index, borderWidth, opacity } = this.props
+    const { animation, cellSize, position, color, index, borderWidth, opacity } = this.props
     let borderColor = '#eeeeee'
 
     if (color == 'transparent') {

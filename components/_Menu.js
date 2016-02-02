@@ -12,7 +12,7 @@ const {
 class _Menu extends React.Component {
 
   getMenuOptions() {
-    const {colorScheme, randomizeColor, toggleBackgroundColor} = this.props
+    const {colorScheme, autoSolve, randomizeColor, toggleBackgroundColor} = this.props
 
     let colorMode = colorScheme.toJS().name
     if (colorMode == 'day') {
@@ -22,8 +22,8 @@ class _Menu extends React.Component {
     }
 
     let menuOptions = [
-      {name: 'auto-solve', action: ''},
-      {name: 'start over', action: ''},
+      {name: 'auto-solve', action: () => autoSolve()},
+      {name: 'start over', action: () => randomizeColor()},
       {name: 'randomize color', action: () => randomizeColor()},
       {name: colorMode + ' mode', action: () => toggleBackgroundColor()}
     ]
@@ -57,7 +57,7 @@ class _Menu extends React.Component {
   }
 
   render() {
-    const {level, colorScheme, closeMenu} = this.props
+    const {colorScheme, closeMenu, level, score} = this.props
 
     let styles = StyleSheet.create({
       container: {
@@ -69,18 +69,24 @@ class _Menu extends React.Component {
         backgroundColor: 'rgba(' + colorScheme.toJS().background + ', .8)'
       },
       text: {
-        marginTop: 40,
         fontFamily: 'Geo',
         fontSize: 16,
         color: '#888888'
+      },
+      gameInfo: {
+        marginBottom: 20
+      },
+      continue: {
+        marginTop: 30
       }
     })
 
     return (
       <TouchableOpacity onPress={() => closeMenu()}>
         <View style={styles.container}>
+          <Text style={[styles.text, styles.gameInfo]}>{score} PTS &nbsp; | &nbsp; LEVEL {level}</Text>
           {this.getMenuOptions()}
-          <Text style={styles.text}>tap to resume game</Text>
+          <Text style={[styles.text, styles.continue]}>tap to resume game</Text>
         </View>
       </TouchableOpacity>
     )
