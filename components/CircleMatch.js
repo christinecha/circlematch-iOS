@@ -51,16 +51,6 @@ class CircleMatch extends React.Component {
     }, 1000)
   }
 
-  // animateCell() {
-  //   Animated.spring(                          // Base: spring, decay, timing
-  //     this.state.bounceValue,                 // Animate `bounceValue`
-  //     {
-  //       toValue: 0.8,                         // Animate to smaller size
-  //       friction: 1,                          // Bouncier spring
-  //     }
-  //   ).start()
-  // }
-
   closeModal() {
     const { dispatch, autoSolved, gridWidth, level, score, timeLeft } = this.props
     dispatch(action.SET_LEVEL(level + 1, gridWidth, score, timeLeft, autoSolved))
@@ -74,13 +64,13 @@ class CircleMatch extends React.Component {
   }
 
   handleSwipeRelease(evt) {
-    const { dispatch, cellData, gridWidth, modalIsOpen, translations, winner, winningCombo } = this.props
+    const { dispatch, animations, cellData, gridWidth, modalIsOpen, winner, winningCombo } = this.props
     console.log('released, modal is ', modalIsOpen)
     if (modalIsOpen == false) {
       let Xdiff = evt.nativeEvent.pageX - originalX
       let Ydiff = evt.nativeEvent.pageY - originalY
       let move = helper.moveCode(gridWidth, Xdiff, Ydiff)
-      dispatch(action.MOVE_CELLS(gridWidth, cellData, move, winningCombo))
+      dispatch(action.MOVE_CELLS(animations, gridWidth, cellData, move, winningCombo))
       originalX = 0
       originalY = 0
     }

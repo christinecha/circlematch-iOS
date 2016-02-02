@@ -11,7 +11,7 @@ function reducer(state = Map(), action) {
       return setState(state, action.data)
     case 'TIMER':
       return setState(state, action.data)
-    case 'DRAG_CELL':
+    case 'ANIMATE_CELL':
       return setState(state, action.data)
     case 'MOVE_CELLS':
       return setState(state, action.data)

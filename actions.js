@@ -14,7 +14,7 @@ export const SOLVE_PUZZLE = (cellData, level) => {
   }
 }
 
-export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
+export const MOVE_CELLS = (animations, gridWidth, cellData, move, winningCombo) => {
 
   let cellDataArray = cellData.split('')
   let emptyCell = cellData.indexOf(0)
@@ -30,7 +30,6 @@ export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
   }
   // console.log(cellDataArray)
 
-
   const winner = () => {
     for (let i = 0; i < cellData.length; i++) {
       if (cellDataArray[i] != winningCombo[i]) {
@@ -43,6 +42,10 @@ export const MOVE_CELLS = (gridWidth, cellData, move, winningCombo) => {
   return {
     type: 'MOVE_CELLS',
     data: {
+      animations: {
+        cellId: emptyCell,
+        move: move
+      },
       cellData: cellDataArray.join(''),
       winner: winner()
     }

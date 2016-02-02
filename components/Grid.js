@@ -21,10 +21,9 @@ class Grid extends React.Component {
     return cellDataArray.map((cell, i) => {
 
       let cellAnimation = ''
-      if (animations.toJS()[cell]) {
-        cellAnimation = animations.toJS()[cell]
+      if (animations.toJS().cellId == i) {
+        cellAnimation = animations.toJS().move
       }
-
       return (
         <Cell
           animation={cellAnimation}
