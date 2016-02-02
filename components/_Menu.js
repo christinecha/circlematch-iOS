@@ -12,7 +12,7 @@ const {
 class _Menu extends React.Component {
 
   getMenuOptions() {
-    const {colorScheme, autoSolve, randomizeColor, toggleBackgroundColor} = this.props
+    const {colorScheme, autoSolve, randomizeColor, reset, toggleBackgroundColor} = this.props
 
     let colorMode = colorScheme.toJS().name
     if (colorMode == 'day') {
@@ -23,7 +23,7 @@ class _Menu extends React.Component {
 
     let menuOptions = [
       {name: 'auto-solve', action: () => autoSolve()},
-      {name: 'start over', action: () => randomizeColor()},
+      {name: 'start over', action: () => reset()},
       {name: 'randomize color', action: () => randomizeColor()},
       {name: colorMode + ' mode', action: () => toggleBackgroundColor()}
     ]

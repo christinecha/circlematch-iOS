@@ -101,6 +101,11 @@ class CircleMatch extends React.Component {
     dispatch(action.SOLVE_PUZZLE(cellData, level))
   }
 
+  reset() {
+    const { dispatch } = this.props
+    dispatch(action.RESET())
+  }
+
   render() {
 
     const {
@@ -157,6 +162,7 @@ class CircleMatch extends React.Component {
             colorScheme={colorScheme}
             score={score}
             autoSolve={() => this.autoSolve()}
+            reset={() => this.reset()}
             randomizeColor={() => this.randomizeColor()}
             toggleBackgroundColor={() => this.toggleBackgroundColor()}
             closeMenu={() => this.closeMenu()} />

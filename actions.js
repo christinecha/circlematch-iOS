@@ -148,6 +148,33 @@ export const TOGGLE_BACKGROUND_COLOR = (colorScheme) => {
   }
 }
 
+export const RESET = () => {
+  return {
+    type: 'RESET',
+    data: {
+      animations: [],
+      backgroundColor: '#f1f1f2',
+      gridWidth: 3,
+      cellData: '102345678',
+      colorScheme: {
+        name: 'day',
+        cell: '59, 192, 203',
+        background: '241, 241, 242'
+      },
+      level: 1,
+      menuIsOpen: false,
+      menuView: 'Main.js',
+      modalIsOpen: false,
+      autoSolved: false,
+      timeLeft: 60,
+      timerIsRunning: false,
+      score: 0,
+      winningCombo: '012345678',
+      winner: false
+    }
+  }
+}
+
 export const CLOSE_MODAL = () => {
   return {
     type: 'CLOSE_MODAL',
