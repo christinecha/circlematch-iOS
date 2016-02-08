@@ -21,11 +21,12 @@ store.dispatch({
   data: {
     animations: [],
     backgroundColor: '#f1f1f2',
+    gameComplete: false,
     gridWidth: 3,
     cellData: '102345678',
     colorScheme: {
       name: 'day',
-      cell: '59, 192, 203',
+      cell: '0, 130, 180',
       background: '241, 241, 242'
     },
     level: 1,
@@ -33,9 +34,10 @@ store.dispatch({
     menuView: 'Main.js',
     modalIsOpen: false,
     autoSolved: false,
+    score: 0,
     timeLeft: 60,
     timerIsRunning: false,
-    score: 0,
+    tutorialIsOn: true,
     winningCombo: '012345678',
     winner: false
   }

@@ -75,18 +75,27 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
   let newLevel = Math.floor(newScore / 1000) + 1
 
   let possibleLevels = solutions[level]
-  let newPuzzle = possibleLevels[helper.randomNum(0, possibleLevels.length - 1)]
 
-  return {
-    type: 'SET_LEVEL',
-    data: {
-      winner: false,
-      level: newLevel,
-      cellData: newPuzzle,
-      autoSolved: false,
-      timerIsRunning: false,
-      timeLeft: 60,
-      score: newScore
+  if (!possibleLevels) { // if you completed the last level
+    return {
+      type: 'GAME_COMPLETE',
+      data: {
+        gameComplete: true
+      }
+    }
+  } else {
+    let newPuzzle = possibleLevels[helper.randomNum(0, possibleLevels.length - 1)]
+    return {
+      type: 'SET_LEVEL',
+      data: {
+        winner: false,
+        level: newLevel,
+        cellData: newPuzzle,
+        autoSolved: false,
+        timerIsRunning: false,
+        timeLeft: 60,
+        score: newScore
+      }
     }
   }
 }
@@ -158,7 +167,7 @@ export const RESET = () => {
       cellData: '102345678',
       colorScheme: {
         name: 'day',
-        cell: '59, 192, 203',
+        cell: '0, 130, 180',
         background: '241, 241, 242'
       },
       level: 1,
@@ -171,6 +180,15 @@ export const RESET = () => {
       score: 0,
       winningCombo: '012345678',
       winner: false
+    }
+  }
+}
+
+export const END_TUTORIAL = () => {
+  return {
+    type: 'CLOSE_MODAL',
+    data: {
+      tutorialIsOn: false
     }
   }
 }

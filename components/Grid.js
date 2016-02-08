@@ -16,18 +16,20 @@ class Grid extends React.Component {
     const { animations, cellData, colorScheme } = this.props
     let cellSize = 80
     let cellDataArray = cellData.split('')
-    let opacityScale = 7.5
 
     return cellDataArray.map((cell, i) => {
 
       let cellAnimation = ''
+      let opacity = cell / 8
+
       if (animations.toJS().cellId == i) {
         cellAnimation = animations.toJS().move
       }
+
       return (
         <Cell
           animation={cellAnimation}
-          opacity={cell / 8}
+          opacity={opacity}
           color={colorScheme.toJS().cell}
           cellSize={cellSize}
           position={cell}

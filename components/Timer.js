@@ -1,5 +1,4 @@
 import React from 'react-native'
-import Cell from './Cell.js'
 import * as helper from '../helpers.js'
 
 const {
@@ -25,7 +24,6 @@ class Timer extends React.Component {
         flex: 1,
         width: timeLeft * 4.1,
         maxHeight: 5,
-        marginTop: 10,
         marginBottom: 10,
         borderRadius: 2.5,
         backgroundColor: 'rgba(' + colorScheme.toJS().cell + ',' + opacity + ')'

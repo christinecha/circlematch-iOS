@@ -42,11 +42,13 @@ class Cell extends React.Component {
       Animated.parallel([
         Animated.spring(this.state.translateX, {
           toValue: 0,
-          friction: 7,
+          friction: 10,
+          tension: 150
         }),
         Animated.spring(this.state.translateY, {
           toValue: 0,
-          friction: 7,
+          friction: 10,
+          tension: 150
         })
       ]).start()
 

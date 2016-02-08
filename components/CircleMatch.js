@@ -5,6 +5,7 @@ import {connect} from 'react-redux/native'
 import MenuButton from './_MenuButton.js'
 import Grid from './Grid.js'
 import Timer from './Timer.js'
+import _Tutorial from './_Tutorial.js'
 import _NextLevel from './_NextLevel.js'
 import _Menu from './_Menu.js'
 import * as action from '../actions.js'
@@ -26,8 +27,8 @@ let timerLaunched = false
 class CircleMatch extends React.Component {
 
   componentDidUpdate() {
-    const { dispatch, autoSolved, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
-    if (winner && !modalIsOpen) {
+    const { dispatch, autoSolved, gameComplete, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
+    if (winner && !modalIsOpen && !gameComplete) {
       dispatch(action.OPEN_MODAL())
     } else if (timerIsRunning == false && timeLeft == 60 && timerLaunched == false) {
       this.runTimer()
@@ -75,6 +76,16 @@ class CircleMatch extends React.Component {
     }
   }
 
+  moveCells(move) {
+    const { dispatch, animations, cellData, gridWidth, winningCombo } = this.props
+    dispatch(action.MOVE_CELLS(animations, gridWidth, cellData, move, winningCombo))
+  }
+
+  endTutorial() {
+    const { dispatch } = this.props
+    dispatch(action.END_TUTORIAL())
+  }
+
   openMenu() {
     const { dispatch } = this.props
     dispatch(action.OPEN_MENU())
@@ -113,6 +124,7 @@ class CircleMatch extends React.Component {
       autoSolved,
       colorScheme,
       cellData,
+      gameComplete,
       gridWidth,
       level,
       menuIsOpen,
@@ -122,6 +134,7 @@ class CircleMatch extends React.Component {
       timerIsRunning,
       timeLeft,
       translations,
+      tutorialIsOn,
       winner,
       winningCombo
     } = this.props
@@ -139,7 +152,20 @@ class CircleMatch extends React.Component {
       <View style={styles.container}>
         <MenuButton
           colorScheme={colorScheme}
+          level={level}
+          score={score}
+          timeLeft={timeLeft}
           openMenu={() => this.openMenu()} />
+        <Modal
+          animated={true}
+          transparent={true}
+          visible={tutorialIsOn} >
+          <_Tutorial
+            level={level}
+            moveCells={(move) => this.moveCells(move)}
+            endTutorial={() => this.endTutorial()}
+            reset={() => this.reset()} />
+        </Modal>
         <Modal
           animated={true}
           transparent={true}
@@ -167,11 +193,6 @@ class CircleMatch extends React.Component {
             toggleBackgroundColor={() => this.toggleBackgroundColor()}
             closeMenu={() => this.closeMenu()} />
         </Modal>
-        <Timer
-          colorScheme={colorScheme}
-          level={level}
-          score={score}
-          timeLeft={timeLeft} />
         <Grid
           animations={animations}
           gridWidth={gridWidth}
@@ -192,6 +213,7 @@ function mapStateToProps(state) {
     backgroundColor: state.get('backgroundColor'),
     colorScheme: state.get('colorScheme'),
     cellData: state.get('cellData'),
+    gameComplete: state.get('gameComplete'),
     gridWidth: state.get('gridWidth'),
     level: state.get('level'),
     menuIsOpen: state.get('menuIsOpen'),
@@ -201,6 +223,7 @@ function mapStateToProps(state) {
     timerIsRunning: state.get('timerIsRunning'),
     timeLeft: state.get('timeLeft'),
     translations: state.get('translations'),
+    tutorialIsOn: state.get('tutorialIsOn'),
     winningCombo: state.get('winningCombo'),
     winner: state.get('winner')
   }

@@ -11,7 +11,7 @@ const {
 } = React
 
 let compliments = [
-  "You're a genius.", "You rock!", "You did it!", "Amazing!", "Woohoo!", "Oh yeah!", "You're so smart!", "Success!", "You rock my socks.", "Killin' it!", "Hip hip, hooray!"
+  "You're a genius.", "You rock!", "You did it!", "Amazing!", "Woohoo!", "Oh yeah!", "You're so smart!", "Success!", "You rock my socks.", "Killin' it!", "Hip hip, hooray!", "Crushing it!"
 ]
 
 class _NextLevel extends React.Component {
@@ -52,10 +52,13 @@ class _NextLevel extends React.Component {
     let announcement = compliments[helper.randomNum(0, compliments.length - 1)]
     let points = 50
     let speedBonus = helper.getPoints(level, timeLeft) - 50
+    let levelDisplay = level
 
     if (autoSolved == true) {
       announcement = 'auto-solved!'
       points = 0
+      speedBonus = 0
+      levelDisplay = level + 1
     }
 
     return (
@@ -64,7 +67,7 @@ class _NextLevel extends React.Component {
           <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
           <Text style={[styles.text, styles.points]}>+ {points} points</Text>
           <Text style={[styles.text, styles.speedBonus]}>+ {speedBonus} speed bonus</Text>
-          <Text style={[styles.text, styles.announcement]}>{score + points + speedBonus} PTS &nbsp; | &nbsp; LEVEL {level}</Text>
+          <Text style={[styles.text, styles.announcement]}>{score + points + speedBonus} PTS &nbsp; | &nbsp; LEVEL {levelDisplay}</Text>
           <Text style={[styles.text, styles.continue]}>tap to continue</Text>
         </View>
       </TouchableOpacity>
