@@ -22,8 +22,8 @@ class _Menu extends React.Component {
     }
 
     let menuOptions = [
-      {name: 'auto-solve', action: () => autoSolve()},
-      {name: 'start over', action: () => reset()},
+      {name: 'reset level', action: () => autoSolve()},
+      {name: 'reset the whole game', action: () => reset()},
       {name: 'randomize color', action: () => randomizeColor()},
       {name: colorMode + ' mode', action: () => toggleBackgroundColor()}
     ]

@@ -17,7 +17,7 @@ let compliments = [
 class _NextLevel extends React.Component {
 
   render() {
-    const {level, closeModal, colorScheme, autoSolved, score, timeLeft} = this.props
+    const {level, closeModal, colorScheme, autoSolved, gameComplete, reset, score, timeLeft} = this.props
 
     let styles = StyleSheet.create({
       container: {
@@ -61,17 +61,29 @@ class _NextLevel extends React.Component {
       levelDisplay = level + 1
     }
 
-    return (
-      <TouchableOpacity onPress={() => closeModal()}>
-        <View style={styles.container}>
-          <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
-          <Text style={[styles.text, styles.points]}>+ {points} points</Text>
-          <Text style={[styles.text, styles.speedBonus]}>+ {speedBonus} speed bonus</Text>
-          <Text style={[styles.text, styles.announcement]}>{score + points + speedBonus} PTS &nbsp; | &nbsp; LEVEL {levelDisplay}</Text>
-          <Text style={[styles.text, styles.continue]}>tap to continue</Text>
-        </View>
-      </TouchableOpacity>
-    )
+    if (gameComplete) {
+      return (
+        <TouchableOpacity onPress={() => reset()}>
+          <View style={styles.container}>
+            <Text style={[styles.text, styles.points]}>you are a champion.</Text>
+            <Text style={[styles.text, styles.announcement]}>you beat the whole game!</Text>
+            <Text style={[styles.text, styles.continue]}>tap to start over</Text>
+          </View>
+        </TouchableOpacity>
+      )
+    } else {
+      return (
+        <TouchableOpacity onPress={() => closeModal()}>
+          <View style={styles.container}>
+            <Text style={[styles.text, styles.announcement]}>{announcement}</Text>
+            <Text style={[styles.text, styles.points]}>+ {points} points</Text>
+            <Text style={[styles.text, styles.speedBonus]}>+ {speedBonus} speed bonus</Text>
+            <Text style={[styles.text, styles.announcement]}>{score + points + speedBonus} PTS &nbsp; | &nbsp; LEVEL {levelDisplay}</Text>
+            <Text style={[styles.text, styles.continue]}>tap to continue</Text>
+          </View>
+        </TouchableOpacity>
+      )
+    }
   }
 }
 

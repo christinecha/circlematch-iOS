@@ -74,9 +74,7 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
   let newScore = score + points
   let newLevel = Math.floor(newScore / 1000) + 1
 
-  let possibleLevels = solutions[level]
-
-  if (!possibleLevels) { // if you completed the last level
+  if (solutions.length <= level) { // if you completed the last level
     return {
       type: 'GAME_COMPLETE',
       data: {
@@ -84,7 +82,9 @@ export const SET_LEVEL = (level, gridWidth, score, timeLeft, autoSolved) => {
       }
     }
   } else {
+    let possibleLevels = solutions[level]
     let newPuzzle = possibleLevels[helper.randomNum(0, possibleLevels.length - 1)]
+
     return {
       type: 'SET_LEVEL',
       data: {
@@ -163,6 +163,7 @@ export const RESET = () => {
     data: {
       animations: [],
       backgroundColor: '#f1f1f2',
+      gameComplete: false,
       gridWidth: 3,
       cellData: '102345678',
       colorScheme: {

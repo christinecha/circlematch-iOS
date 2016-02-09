@@ -43,7 +43,11 @@ let steps = [
     styles: [[styles.text, styles.large], styles.text]
   },
   {
-    messages: ['this is the menu button', 'customize colors, auto-solve, reset, etc.'],
+    messages: ['in night mode', 'it\'s the opposite (dark to light)'],
+    styles: [[styles.text, styles.large], styles.text]
+  },
+  {
+    messages: ['this is the menu button', 'customize colors, toggle night/day mode, reset, etc.'],
     styles: [[styles.text, styles.large, styles.menu], styles.text]
   },
   {
@@ -66,7 +70,7 @@ class _Tutorial extends React.Component {
   }
 
   nextStep() {
-    const { endTutorial, moveCells, reset } = this.props
+    const { endTutorial, moveCells, reset, toggleBackgroundColor } = this.props
     if (this.state.currentStep < steps.length - 1) {
       this.setState({
         currentStep: this.state.currentStep + 1
@@ -78,6 +82,8 @@ class _Tutorial extends React.Component {
 
     if (this.state.currentStep == 1) {
       moveCells(1)
+    } else if (this.state.currentStep == 2) {
+      toggleBackgroundColor()
     }
   }
 

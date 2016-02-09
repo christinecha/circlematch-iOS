@@ -28,7 +28,7 @@ class CircleMatch extends React.Component {
 
   componentDidUpdate() {
     const { dispatch, autoSolved, gameComplete, winner, level, modalIsOpen, gridWidth, timeLeft, timerIsRunning, score } = this.props
-    if (winner && !modalIsOpen && !gameComplete) {
+    if (winner && !modalIsOpen) {
       dispatch(action.OPEN_MODAL())
     } else if (timerIsRunning == false && timeLeft == 60 && timerLaunched == false) {
       this.runTimer()
@@ -164,6 +164,7 @@ class CircleMatch extends React.Component {
             level={level}
             moveCells={(move) => this.moveCells(move)}
             endTutorial={() => this.endTutorial()}
+            toggleBackgroundColor={() => this.toggleBackgroundColor()}
             reset={() => this.reset()} />
         </Modal>
         <Modal
@@ -174,8 +175,10 @@ class CircleMatch extends React.Component {
             level={level}
             autoSolved={autoSolved}
             colorScheme={colorScheme}
+            gameComplete={gameComplete}
             score={score}
             timeLeft={timeLeft}
+            reset={() => this.reset()}
             closeModal={() => this.closeModal()} />
         </Modal>
         <Modal

@@ -91,6 +91,6 @@ class AppContainer extends React.Component {
 }
 
 AppRegistry.registerComponent(
-  'circlematch_native',
+  'circlematch',
   () => AppContainer
 )

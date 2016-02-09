@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.circlematch_native">
+    package="com.circlematch">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
